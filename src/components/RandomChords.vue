@@ -1,7 +1,7 @@
 <template>
   <div class="random-chords">
     <h1>Random Chords</h1>
-    <h2>List of chrods</h2>
+    <h2>List of chords</h2>
     <ul class="listOfChords">
       <li v-for="chord in chords" v-bind:key="chord">
         <p>{{chord}}</p>
@@ -19,7 +19,7 @@
       </li>
     </ul>
     <div class="randomChordsInput">
-      <label for="nbrRandomChords"><strong>Set number of random chrods:</strong></label>
+      <label for="nbrRandomChords"><strong>Set number of random chords:</strong></label>
       <input id="nbrRandomChords"
              type="number"
              min="10"
@@ -30,9 +30,20 @@
     <button v-on:click="randomizeChords" class="example_d">
       <strong>Randomize Chords</strong>
     </button>
+    <div class="playChords">
+      <button v-on:click="startPlaying">play</button>
+      <label for="nbrRandomChords"><strong>Set seconds between chords: </strong></label>
+      <input id="timeBetweenChords"
+             type="number"
+             min="1"
+             max="5"
+             v-model="timeBetweenChords" />
+    </div>
     <hr />
     <ul>
-      <li class="randomChord" v-for="randomChord in randomChords"
+      <li class="randomChord"
+          v-bind:class="{active: randomChord+'-'+index === activeChord}"
+          v-for="(randomChord, index) in randomChords"
           v-bind:key="randomChord+Math.random()">{{randomChord}}</li>
     </ul>
   </div>
@@ -43,18 +54,18 @@ export default {
   name: 'RandomChords',
   data() {
     return {
-      numberOfRandomChords: 40,
+      numberOfRandomChords: 20,
+      timeBetweenChords: 2,
       allChords: ['C-DUR', 'C-MOL', 'D-DUR', 'D-MOL', 'G-DUR', 'G-MOL', 'E-DUR', 'E-MOL', 'A-MOL', 'F-DUR', 'H'],
       chords: ['C-DUR', 'C-MOL', 'D-DUR', 'D-MOL', 'G-DUR', 'G-MOL'],
       randomChords: [],
       showFilteredChords: false,
+      activeChord: '',
     };
   },
   computed: {
     filteredChords() {
-      const filteredChords = this.allChords.filter(x => !this.chords.includes(x));
-      console.log(filteredChords);
-      return filteredChords;
+      return this.allChords.filter(x => !this.chords.includes(x));
     },
   },
   methods: {
@@ -73,6 +84,13 @@ export default {
       this.chords.push(event.target.value);
       this.showFilteredChords = !this.showFilteredChords;
       this.randomizeChords();
+    },
+    startPlaying() {
+      this.randomChords.forEach((chord, index) => {
+        setTimeout(() => {
+          this.activeChord = `${chord}-${index}`;
+        }, index * this.timeBetweenChords * 1000);
+      });
     },
   },
   created() {
@@ -98,7 +116,7 @@ a {
   color: #42b983;
 }
 hr {
-  margin: 40px 40px 20px 40px;
+  margin: 5px 40px 20px 40px;
   border: 1px solid #f6b93b;
 }
 .randomChord {
@@ -107,6 +125,10 @@ hr {
   margin: 20px;
   font-weight: bold;
   min-width: 100px;
+}
+.randomChord.active {
+  border: 1px solid #f6b93b;
+  color: #f6b93b;
 }
 .example_d {
   color: #f6b93b !important;
@@ -203,5 +225,40 @@ hr {
 .box select option {
   padding: 30px;
 }
+
+.playChords {
+  margin: 40px 0 5px 40px;
+  width: 30%;
+  text-align: left;
+}
+.playChords button {
+  color: #f6b93b !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 5px;
+  border: 2px solid #f6b93b !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  font-size:0.9em;
+  font-weight:bold;
+  margin-right:10px;
+}
+.playChords button:hover {
+  color: #ffffff !important;
+  background: #f6b93b;
+  border-color: #f6b93b !important;
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
+.playChords input {
+  padding: 5px;
+  border: 2px solid #f6b93b;
+  font-size: 0.9em;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
 button:focus {outline:0;}
 </style>
