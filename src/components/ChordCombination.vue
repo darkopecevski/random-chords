@@ -1,6 +1,6 @@
 <template>
   <div class="random-chords">
-    <h1>Random Chords</h1>
+    <h1>Chord Combination</h1>
     <h2>List of chords</h2>
     <ul class="listOfChords">
       <li v-for="chord in chords" v-bind:key="chord">
@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  name: 'RandomChords',
+  name: 'ChordCombination',
   data() {
     return {
       numberOfRandomChords: 20,
