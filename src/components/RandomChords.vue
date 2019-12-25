@@ -51,14 +51,16 @@
 </template>
 
 <script>
+import { allChords, defaultChords } from '../const/chords';
+
 export default {
   name: 'RandomChords',
   data() {
     return {
       numberOfRandomChords: 20,
       timeBetweenChords: 2,
-      allChords: ['C-DUR', 'C-MOL', 'D-DUR', 'D-MOL', 'G-DUR', 'G-MOL', 'E-DUR', 'E-MOL', 'A-MOL', 'F-DUR', 'H'],
-      chords: ['C-DUR', 'C-MOL', 'D-DUR', 'D-MOL', 'G-DUR', 'G-MOL'],
+      allChords,
+      chords: defaultChords,
       randomChords: [],
       showFilteredChords: false,
       activeChord: '',
