@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/chords">Chords</router-link> |
       <router-link to="/random-chords">Random Chords</router-link> |
       <router-link to="/chord-combination">Chord Combination</router-link>
     </div>

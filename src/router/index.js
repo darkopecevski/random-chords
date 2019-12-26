@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ChordCombination from '../views/ChordCombination.vue';
 import RandomChords from '../views/RandomChords.vue';
+import Chords from '../views/Chords.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/chord-combination',
     name: 'chord-combination',
     component: ChordCombination,
+  },
+  {
+    path: '/chords',
+    name: 'chords',
+    component: Chords,
   },
 ];
 
