@@ -1,18 +1,24 @@
 <template>
   <div class="chordHolder">
     <h3 class="chordname">{{chord}}</h3>
+    <div class="playChords">
+      <button
+        @click.prevent="playSound(require(`../assets/audio/chord-${chord}.mp3`))">
+        play
+      </button>
+    </div>
     <div class="diagram-wrap">
       <div class="diagram">
         <div class="row"
           v-for="(config, i) in activeChord"
-          v-bind:key="config.label" :class="{first: i === 0, last: i === 5}">
+          v-bind:key="config.label+i" :class="{first: i === 0, last: i === 5}">
             <div class="cell label"><div class="note stringname">{{config.label}}</div></div>
             <div class="cell label">
               <div class="note openstring" v-if="config.openString">{{config.openString}}</div>
             </div>
             <div class="cell fret"
               v-for="(fret, index) in config.frets"
-              v-bind:key="config.label+i+index">
+              v-bind:key="chord+config.label+i+index">
               <div class="blue note" v-if="fret">{{fret}}</div>
             </div>
         </div>
@@ -30,7 +36,16 @@ export default {
   data() {
     return {
       activeChord: chordConfiguration[this.chord],
+      publicPath: process.env.BASE_URL,
     };
+  },
+  methods: {
+    playSound(sound) {
+      if (sound) {
+        const audio = new Audio(sound);
+        audio.play();
+      }
+    },
   },
 };
 </script>
@@ -50,14 +65,14 @@ html {
 }
 .chordHolder {
   float: left;
-  border: 1px solid #f6b93b;
-  padding: 20px 30px 50px 0px;
+  border: 1px solid #444444;
+  padding: 0px 0px 20px 0px;
   margin: 10px;
 }
 
 .chordname {
   font-size: 3rem;
-  margin: 10px 0 25px;
+  margin: 10px 0 15px;
   font-weight: bold;
   text-align: center;
   position: relative;
@@ -106,7 +121,7 @@ html {
   background: #f6b93b;
   text-align: center;
   border-radius: 50%;
-  padding-top: 4px;
+  padding-top: 2px;
 }
 .diagram .cell .note.stringname, .diagram .cell .note.openstring {
   background: none;
@@ -117,6 +132,26 @@ html {
 }
 .diagram .cell .note.openstring {
   font-weight: bold;
+}
+.playChords button {
+  color: #444444 !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 5px;
+  border: 2px solid #444444 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  font-size:0.9em;
+  font-weight:bold;
+  margin-bottom: 20px;
+}
+.playChords button:hover {
+  color: #ffffff !important;
+  background: #444444;
+  border-color: #444444 !important;
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
 }
 
 /* .diagram-wrap {

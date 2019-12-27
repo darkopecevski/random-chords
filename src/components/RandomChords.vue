@@ -41,7 +41,7 @@
              v-model="timeBetweenChords" />
     </div>
     <hr />
-    <ul>
+    <ul class="randomChordsWrapper">
       <li class="randomChord"
           v-bind:class="{active: randomChord+'-'+index === activeChord}"
           v-for="(randomChord, index) in randomChords"
@@ -125,7 +125,7 @@ hr {
 .randomChord {
   padding: 20px;
   border: 1px solid black;
-  margin: 20px;
+  margin: 18px;
   font-weight: bold;
   min-width: 100px;
 }
@@ -172,8 +172,7 @@ hr {
 .listOfChords button {
   border: 0px;
   border-left: 1px solid #f6b93b;
-  padding-top: 13px;
-  padding-bottom: 10px;
+  padding: 13px 5px 10px 5px;
   font-weight: bold;
   font-size: 1em;
   color: #fff;
@@ -183,9 +182,10 @@ hr {
 .listOfChords li p {
   margin-top: 7px;
   margin-bottom: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 15px;
+  margin-left: 15px;
   display: inline-block;
+  font-weight: bold;
 }
 
 .listOfChords li.selectChord {
@@ -205,7 +205,6 @@ hr {
 }
 
 .box::before {
-  content: "\f13a";
   font-family: FontAwesome;
   position: absolute;
   top: 0;
@@ -231,8 +230,10 @@ hr {
 
 .playChords {
   margin: 40px 0 5px 40px;
-  width: 30%;
   text-align: left;
+}
+.randomChordsWrapper {
+  margin: 20px 0 5px 1px;
 }
 .playChords button {
   color: #f6b93b !important;
