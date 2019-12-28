@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: RandomChords,
+    component: Chords,
   },
   {
     path: '/random-chords',

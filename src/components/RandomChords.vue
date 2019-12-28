@@ -57,7 +57,7 @@ export default {
   name: 'RandomChords',
   data() {
     return {
-      numberOfRandomChords: 20,
+      numberOfRandomChords: 30,
       timeBetweenChords: 2,
       allChords,
       chords: defaultChords,
