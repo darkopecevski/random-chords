@@ -2,7 +2,18 @@
   <div class="tic-tac-toe">
     <h1>Tic Tac Toe</h1>
     <div class="gameControls">
-      <button @click="newGame">New Game</button>
+      <button @click="newGame">New Game</button><br>
+      <button @click="playerStartsFirst = true" v-show="playVsComputer"
+        v-bind:class="{active: playerStartsFirst}">Play with X</button>
+      <button @click="playerStartsFirst = false" v-show="playVsComputer"
+        v-bind:class="{active: !playerStartsFirst}">Play with 0</button>
+      <div class="playerVsComputer">
+        <input type="radio" id="one" v-bind:value="true" v-model="playVsComputer">
+        <label for="one">Player vs Computer</label>
+        <br>
+        <input type="radio" id="two" v-bind:value="false" v-model="playVsComputer">
+        <label for="two">Player vs Player</label>
+      </div>
       <div class="results">
         <ul>
           <li>Wins:</li>
@@ -37,13 +48,14 @@ export default {
       winningCombinations,
       played: [],
       currentPlayer: 'x',
-      gameStarted: false,
+      gameStarted: true,
       playerOne: [],
       playerTwo: [],
       isWinner: [],
       playVsComputer: true,
       playerOneWins: 0,
       computerWins: 0,
+      playerStartsFirst: true,
     };
   },
   methods: {
@@ -99,15 +111,22 @@ export default {
       this.isWinner = [];
       this.currentPlayer = 'x';
       this.gameStarted = true;
+      if (!this.playerStartsFirst && this.playVsComputer) {
+        this.computerMove();
+      }
     },
     switchPlayer(currentPlayer) {
       this.currentPlayer = currentPlayer === 'x' ? '0' : 'x';
-      if (this.currentPlayer === '0' && this.playVsComputer) {
-        const playedMoves = [...this.playerOne, ...this.playerTwo];
-        const nonPlayedFields = this.ttt.filter(el => !playedMoves.includes(el));
-        const randomItem = nonPlayedFields[Math.floor(Math.random() * nonPlayedFields.length)];
-        this.playMove(randomItem);
+      if ((this.currentPlayer === '0' && this.playerStartsFirst && this.playVsComputer)
+        || (this.currentPlayer === 'x' && !this.playerStartsFirst && this.playVsComputer)) {
+        this.computerMove();
       }
+    },
+    computerMove() {
+      const playedMoves = [...this.playerOne, ...this.playerTwo];
+      const nonPlayedFields = this.ttt.filter(el => !playedMoves.includes(el));
+      const randomItem = nonPlayedFields[Math.floor(Math.random() * nonPlayedFields.length)];
+      this.playMove(randomItem);
     },
     checkWinner(player) {
       if (player.length < 3) {
@@ -159,6 +178,7 @@ hr {
   height: 200px;
   border: 2px solid grey;
   float: left;
+  cursor: pointer;
 }
 .gameHolder div.active{
   background-color: aquamarine;
@@ -199,7 +219,25 @@ hr {
   margin: 10px auto 10px auto;
   border: 1px solid #f6b93b;
   width: 150px;
-
+}
+.playerVsComputer {
+  margin: 10px auto 10px auto;
+  border: 1px solid #f6b93b;
+  width: 250px;
+  text-align: left;
+  padding: 5px;
+}
+.playerVsComputer label{
+  margin-left: 10px;
+}
+.gameControls button {
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+  cursor: pointer;
+}
+.gameControls button.active {
+  background-color: #f6b93b;
 }
 button:focus {outline:0;}
 </style>
