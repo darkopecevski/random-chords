@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import ChordCombination from '../views/ChordCombination.vue';
 import RandomChords from '../views/RandomChords.vue';
 import Chords from '../views/Chords.vue';
+import Timer from '../views/Timer.vue';
+import TicTacToe from '../views/TicTacToe.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +29,16 @@ const routes = [
     path: '/chords',
     name: 'chords',
     component: Chords,
+  },
+  {
+    path: '/timer',
+    name: 'timer',
+    component: Timer,
+  },
+  {
+    path: '/ttt',
+    name: 'tic-tac-toe',
+    component: TicTacToe,
   },
 ];
 
