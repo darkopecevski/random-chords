@@ -12,6 +12,7 @@
             <li><router-link to="/chord-combination">Chord Combination</router-link></li>
             <li><router-link to="/timer">Timer</router-link></li>
             <li><router-link to="/ttt">Tic Tac Toe</router-link></li>
+            <li><router-link to="/kwh">Power Calculator</router-link></li>
           </ul>
         </nav>
       </div>

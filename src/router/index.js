@@ -5,6 +5,7 @@ import RandomChords from '../views/RandomChords.vue';
 import Chords from '../views/Chords.vue';
 import Timer from '../views/Timer.vue';
 import TicTacToe from '../views/TicTacToe.vue';
+import PowerConsumption from '../views/PowerConsumption.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/ttt',
     name: 'tic-tac-toe',
     component: TicTacToe,
+  },
+  {
+    path: '/kwh',
+    name: 'power-consumption-calculator',
+    component: PowerConsumption,
   },
 ];
 
